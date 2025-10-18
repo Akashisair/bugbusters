@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriLink - Farmer Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- STYLES FOR FARMER DASHBOARD --- */
+        :root {
+            --agri-green: #2e8b57;
+            --light-green: #b7e4c7;
+            --cream: #f9f7f3;
+            --text: #1b4332;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: var(--light-green); /* Light background for the dashboard */
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 6px var(--shadow);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .logo span {
+            color: var(--agri-green);
+        }
+
+        nav a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn.farmer {
+            background: var(--agri-green);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px var(--shadow);
+        }
+
+        /* Dashboard/Form Section */
+        .auth-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1rem;
+        }
+
+        .dashboard-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px var(--shadow);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .dashboard-container h3 {
+            text-align: center;
+            color: var(--agri-green);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid var(--light-green);
+            padding-bottom: 0.5rem;
+        }
+
+        .farmer-form {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .farmer-form label {
+            font-weight: 600;
+            color: var(--text);
+            text-align: left;
+            margin-top: 0.5rem;
+        }
+
+        .farmer-form input, .farmer-form select {
+            padding: 0.8rem;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            width: 100%;
+            background-color: white;
+            color: var(--text);
+            transition: 0.3s;
+        }
+        
+        /* Specific styling for file input */
+        .farmer-form input[type="file"] {
+             padding: 0.6rem;
+             font-size: 0.9rem;
+        }
+
+
+        .farmer-form input:focus, .farmer-form select:focus {
+            border-color: var(--agri-green);
+            box-shadow: 0 0 6px var(--light-green);
+        }
+
+        .farmer-form button {
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            background: white;
+            border-top: 1px solid #eee;
+            box-shadow: 0 -1px 6px var(--shadow);
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Agri<span>Link</span></h1>
+            <nav class="flex items-center space-x-4">
+                <a href="index.html" class="btn farmer px-4 py-2 text-sm shadow-md">← Back to Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content: Registration Section -->
+    <section class="auth-section">
+        <div class="dashboard-container">
+            <h3>👨‍🌾 Farmer Registration / Profile</h3>
+            <p class="text-center text-sm mb-4 text-gray-600">Register or update your profile to access market data and advisories.</p>
+            
+            <form id="farmerForm" class="farmer-form">
+                
+                <div>
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name" required />
+                </div>
+                
+                <div>
+                    <label for="location">Location (Mandal/Village):</label>
+                    <input list="locations" id="location" placeholder="Select your location" required />
+                    <datalist id="locations">
+                        <option value="Bheemunipatnam"></option>
+                        <option value="Ramakrishnapuram"></option>
+                        <option value="Anandapuram"></option>
+                        <option value="Gajuwaka"></option>
+                        <option value="Duvvada"></option>
+                        <option value="Pendurthi"></option>
+                        <option value="Malkapuram"></option>
+                        <option value="Yerpedu"></option>
+                        <option value="Vizianagaram"></option>
+                    </datalist>
+                </div>
+                
+                <div>
+                    <label for="crop">Primary Crop:</label>
+                    <select id="crop" required>
+                        <option value="" disabled selected>Select Current Crop</option>
+                        <option value="Paddy">Paddy (Rice)</option>
+                        <option value="Maize">Maize (Corn)</option>
+                        <option value="Groundnut">Groundnut (Peanut)</option>
+                        <option value="Cotton">Cotton</option>
+                        <option value="Chili">Chili Peppers</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="mobile">Mobile Number:</label>
+                    <input type="tel" id="mobile" placeholder="Enter your phone number" required />
+                </div>
+
+                <!-- Photo Upload Field -->
+                <div>
+                    <label for="photo">Profile Photo (Optional):</label>
+                    <input type="file" id="photo" accept="image/*" />
+                </div>
+
+
+                <button type="submit" class="btn farmer" id="registerButton">
+                    💾 Register & Save Profile
+                </button>
+                <p id="saveMessage" class="text-center text-sm mt-3 hidden"></p>
+                <p id="uploadProgress" class="text-center text-xs text-gray-500 hidden"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>© <span id="year"></span> AgriLink — Empowering Farmers</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, setPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js"; // NEW Storage Import
+        
+        // --- Global Variables (Provided by Canvas Environment) ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db, auth, storage, userId;
+        
+        // --- Initialization and Authentication ---
+        async function initializeFirebase() {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.error("Firebase configuration not available.");
+                    return;
+                }
+                
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                storage = getStorage(app); // Initialize Storage
+                
+                setLogLevel('debug');
+                await setPersistence(auth, browserSessionPersistence);
+                
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                return new Promise((resolve) => {
+                    onAuthStateChanged(auth, (user) => {
+                        if (user) {
+                            userId = user.uid;
+                        } else {
+                            userId = crypto.randomUUID(); 
+                        }
+                        console.log("Firebase User ID:", userId);
+                        resolve(true);
+                    });
+                });
+
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+            }
+        }
+
+        // --- NEW: Image Upload Function ---
+        async function uploadFile(file) {
+            if (!storage || !userId) return null;
+
+            const storageRef = ref(storage, farmer_profiles/${userId}/${file.name});
+            const uploadTask = uploadBytesResumable(storageRef, file);
+            const progressElement = document.getElementById('uploadProgress');
+
+            return new Promise((resolve, reject) => {
+                uploadTask.on('state_changed', 
+                    (snapshot) => {
+                        // Handle progress updates
+                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        progressElement.textContent = Upload is ${progress.toFixed(0)}% complete...;
+                        progressElement.classList.remove('hidden');
+                    }, 
+                    (error) => {
+                        // Handle unsuccessful uploads
+                        console.error("Image upload failed:", error);
+                        progressElement.textContent = 'Upload failed.';
+                        reject(null);
+                    }, 
+                    async () => {
+                        // Handle successful uploads on complete
+                        progressElement.classList.add('hidden');
+                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                        resolve(downloadURL);
+                    }
+                );
+            });
+        }
+
+
+        // --- Data Saving Function ---
+        async function saveFarmerDetails(details) {
+            if (!db || !userId) {
+                console.error("Database not ready or user not authenticated.");
+                return false;
+            }
+
+            // Private path: /artifacts/{appId}/users/{userId}/farmer_profile/{details}
+            const docRef = doc(db, 
+                artifacts/${appId}/users/${userId}/farmer_profile, 
+                'details'
+            );
+
+            try {
+                await setDoc(docRef, {
+                    ...details,
+                    lastUpdated: new Date().toISOString()
+                }, { merge: true });
+
+                return true;
+
+            } catch (error) {
+                console.error("Error saving document to Firestore:", error);
+                return false;
+            }
+        }
+
+        // --- Main Logic on Window Load ---
+        window.onload = async function() {
+            document.getElementById("year").textContent = new Date().getFullYear();
+            
+            await initializeFirebase();
+            
+            // Handle form submission
+            document.getElementById('farmerForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const registerButton = document.getElementById('registerButton');
+                registerButton.textContent = "Processing...";
+                registerButton.disabled = true;
+
+                const name = document.getElementById('name').value;
+                const location = document.getElementById('location').value;
+                const mobile = document.getElementById('mobile').value;
+                const crop = document.getElementById('crop').value;
+                const photoInput = document.getElementById('photo'); // Get the file input
+                
+                const messageElement = document.getElementById('saveMessage');
+
+                const details = { name, location, mobile, crop };
+
+                if (!name || !location || !mobile || !crop) {
+                    messageElement.textContent = 'Please fill out all required fields to register.';
+                    messageElement.classList.remove('hidden', 'text-white', 'bg-green-600');
+                    messageElement.classList.add('text-red-500', 'p-2', 'bg-red-100', 'rounded-lg');
+                    registerButton.textContent = "💾 Register & Save Profile";
+                    registerButton.disabled = false;
+                    setTimeout(() => { messageElement.classList.add('hidden'); }, 5000);
+                    return;
+                }
+
+                let photoURL = null;
+                const file = photoInput.files[0];
+
+                // 1. Handle File Upload (If present)
+                if (file) {
+                    registerButton.textContent = "Uploading Photo...";
+                    photoURL = await uploadFile(file);
+                    if (!photoURL) {
+                         // If photo upload fails, stop and notify
+                        messageElement.textContent = 'Registration failed: Photo upload error.';
+                        messageElement.classList.remove('hidden', 'text-white', 'bg-green-600');
+                        messageElement.classList.add('text-red-500', 'p-2', 'bg-red-100', 'rounded-lg');
+                        registerButton.textContent = "💾 Register & Save Profile";
+                        registerButton.disabled = false;
+                        document.getElementById('uploadProgress').classList.add('hidden');
+                        setTimeout(() => { messageElement.classList.add('hidden'); }, 5000);
+                        return;
+                    }
+                    details.photoURL = photoURL;
+                }
+
+                // 2. Save Details (Including photo URL if uploaded)
+                registerButton.textContent = "Saving Profile...";
+                const success = await saveFarmerDetails(details);
+
+                if (success) {
+                    messageElement.textContent = Registration successful! Welcome, ${name}. Your data is saved.;
+                    messageElement.classList.remove('hidden', 'text-red-500', 'bg-red-100');
+                    messageElement.classList.add('text-white', 'p-2', 'bg-green-600', 'rounded-lg');
+                } else {
+                    messageElement.textContent = 'Error saving data. Please try again.';
+                    messageElement.classList.remove('hidden', 'text-white', 'bg-green-600');
+                    messageElement.classList.add('text-red-500', 'p-2', 'bg-red-100', 'rounded-lg');
+                }
+
+                registerButton.textContent = "💾 Register & Save Profile";
+                registerButton.disabled = false;
+                
+                setTimeout(() => { messageElement.classList.add('hidden'); }, 5000);
+            });
+        }
+    </script>
+</body>
+</html>

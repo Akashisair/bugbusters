@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgriLink - Home: Empowering Farmers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --agri-green: #2e8b57;
+      --accent-green: #40916c;
+      --light-green: #b7e4c7;
+      --cream: #f9f7f3;
+      --text: #1b4332;
+      --shadow: rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 10px var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .header .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.7rem;
+      color: var(--text);
+      transition: color 0.3s;
+    }
+
+    .logo span {
+      color: var(--agri-green);
+    }
+
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--agri-green);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(3px);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 850px;
+      padding: 2rem;
+      color: white;
+      animation: fadeIn 1.8s ease-out;
+    }
+
+    .hero h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.4);
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: #eaf4ec;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 1.8rem;
+      border-radius: 10px;
+      font-weight: 600;
+      text-decoration: none;
+      color: white;
+      transition: all 0.3s ease;
+      border: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .btn.farmer {
+      background: var(--agri-green);
+    }
+
+    .btn.customer {
+      background: var(--accent-green);
+    }
+
+    .btn:hover {
+      transform: translateY(-4px) scale(1.03);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    /* SHOWCASE SECTION */
+    .showcase {
+      background: var(--light-green);
+      padding: 4rem 0;
+    }
+
+    .showcase h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .scrolling-container {
+      display: flex;
+      gap: 2rem;
+      overflow-x: auto;
+      padding: 0 2rem 1.5rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .scrolling-container::-webkit-scrollbar {
+      height: 8px;
+    }
+    .scrolling-container::-webkit-scrollbar-thumb {
+      background: var(--agri-green);
+      border-radius: 10px;
+    }
+
+    .farmer-card {
+      background: white;
+      border-radius: 15px;
+      min-width: 300px;
+      box-shadow: 0 6px 18px var(--shadow);
+      overflow: hidden;
+      scroll-snap-align: center;
+      transition: transform 0.4s ease;
+    }
+
+    .farmer-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .farmer-card img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .farmer-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .farmer-info {
+      padding: 1.25rem;
+      text-align: left;
+    }
+
+    .farmer-info h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--agri-green);
+      text-transform: capitalize;
+      margin-bottom: 0.5rem;
+    }
+
+    .farmer-info p {
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* FOOTER */
+    .footer {
+      text-align: center;
+      background: white;
+      border-top: 1px solid #eee;
+      box-shadow: 0 -2px 8px var(--shadow);
+      padding: 1rem;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero h2 {
+        font-size: 2.1rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+      .scrolling-container {
+        gap: 1rem;
+      }
+      .farmer-card {
+        min-width: 260px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Agri<span>Link</span></h1>
+      <nav class="flex items-center">
+        <a href="index.html">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h2>Agri<span>Link</span> - Empowering Farmers, Enriching Communities</h2>
+      <p>AgriLink is a transparent platform where farmers and customers connect directly — promoting fair trade, sustainability, and trust in every transaction.</p>
+      <div class="button-group">
+        <a href="farmer_dashboard.html" class="btn farmer">👩‍🌾 Farmer Login / Dashboard</a>
+        <a href="customer_login.html" class="btn customer">🛒 Customer Login / Marketplace</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase -->
+  <section class="showcase">
+    <h2>Meet Our Top Farmers</h2>
+    <div class="scrolling-container">
+      <div class="farmer-card">
+        <img src="Image2.jpg" alt="Farmer Navadeep Naidu working in a rice paddy field">
+        <div class="farmer-info">
+          <h4>navadeep naidu</h4>
+          <p class="font-semibold text-gray-700">Cultivation:</p>
+          <p>Seasonal Vegetables (Potato, Tomato, Cauliflower) and Mustard. He relies heavily on rented tractors and machinery (Custom Hiring Centers).</p>
+          <p class="font-semibold text-gray-700 mt-2">Production:</p>
+          <p>120 Quintals/Acre (Above Average)</p>
+        </div>
+      </div>
+
+      <div class="farmer-card">
+        <img src="Image3.jpg" alt="Farmer Amar Singh">
+        <div class="farmer-info">
+          <h4>amar</h4>
+          <p class="font-semibold text-gray-700">Cultivation:</p>
+          <p>Follows the traditional paddy cultivation method using Swarna variety seeds during the Kharif season. Practices puddling and transplanting, supported by drip and canal irrigation. Uses organic manure along with balanced fertilizer application for soil health.</p>
+          <p class="font-semibold text-gray-700 mt-2">Production:</p>
+          <p>25 Quintals/Acre (Excellent Yield)</p>
+        </div>
+      </div>
+
+      <div class="farmer-card">
+        <img src="Image.jpg" alt="Farmer Kishore">
+        <div class="farmer-info">
+          <h4>kishore</h4>
+          <p class="font-semibold text-gray-700">Cultivation:</p>
+          <p>Follows the traditional south Indian cropping pattern: Kharif (Monsoon) crop is Paddy (Rice) and Rabi (Winter) crop is Wheat. Relies on canal and occasional tube well water. Uses traditional seeds and a fixed schedule for fertilizers.</p>
+          <p class="font-semibold text-gray-700 mt-2">Production:</p>
+          <p>55 Quintals/Acre (Stable Yield)</p>
+        </div>
+      </div>
+
+      <div class="farmer-card">
+        <img src="Image4.jpg" alt="Farmer Nikhil picking chili peppers">
+        <div class="farmer-info">
+          <h4>nikhil</h4>
+          <p class="font-semibold text-gray-700">Cultivation:</p>
+          <p>Follows a modern hybrid cultivation approach with drip irrigation. Grows the Teja variety of red chilies during the Rabi season. Uses mulching to retain soil moisture and applies organic compost to enhance spice quality and yield.</p>
+          <p class="font-semibold text-gray-700 mt-2">Production:</p>
+          <p>80 Quintals/Acre (High Value)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© <span id="year"></span> AgriLink — Empowering Farmers</p>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
